@@ -7,16 +7,18 @@ interface CommentProps{
 }
 const CommentComp = ({id}: CommentProps) =>{
     console.log('id:', id, 'url:', `https://dummyjson.com/posts/${id}/comments`)
-    const {data, isLoading} = useQuery('comment', async()=>{
+    //const 
+    const {data, isLoading} = useQuery('comment'+id, async()=>{
         const response = await axios.get(`https://dummyjson.com/posts/${id}/comments`)
         return response.data
     })
 
+    console.log('total:', data?.total);
     if(isLoading){
         return <p>Loading!!!!!</p>
     }
 
-    return(<p>{data.total}</p>)
+    return(<td>{data.total || 0}</td>)
 
 }
 export default CommentComp;
